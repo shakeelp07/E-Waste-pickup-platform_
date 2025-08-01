@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - E-Waste Pickup</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="container admin-container">
+    <div class="admin-header">
+      <h1>Admin Dashboard</h1>
+      <p class="env-message">Manage all e-waste pickup requests and update their status</p>
+    </div>
+    
+    <div class="admin-stats">
+      <div class="stat-card">
+        <h3>Total Requests</h3>
+        <p class="stat-number"><%= pickups.length %></p>
+      </div>
+      <div class="stat-card">
+        <h3>Pending</h3>
+        <p class="stat-number pending"><%= pickups.filter(p => p.status === 'Pending').length %></p>
+      </div>
+      <div class="stat-card">
+        <h3>Scheduled</h3>
+        <p class="stat-number scheduled"><%= pickups.filter(p => p.status === 'Scheduled').length %></p>
+      </div>
+      <div class="stat-card">
+        <h3>Completed</h3>
+        <p class="stat-number completed"><%= pickups.filter(p => p.status === 'Completed').length %></p>
+      </div>
+    </div>
+
+    <div class="admin-table-container">
+      <h2>All Pickup Requests</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Item</th>
+            <th>Preferred Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (pickups.length === 0) { %>
+            <tr><td colspan="8">No pickup requests found.</td></tr>
+          <% } else { %>
+            <% pickups.forEach(function(pickup) { %>
+              <tr>
+                <td><%= pickup._id.toString().slice(-6) %></td>
+                <td><%= pickup.name %></td>
+                <td><%= pickup.email %></td>
+                <td><%= pickup.address %></td>
+                <td><%= pickup.item %></td>
+                <td><%= pickup.preferredDate.toDateString() %></td>
+                <td>
+                  <span class="status-badge status-<%= pickup.status.toLowerCase() %>">
+                    <%= pickup.status %>
+                  </span>
+                </td>
+                <td>
+                  <form action="/admin/update-status" method="POST" class="status-form">
+                    <input type="hidden" name="pickupId" value="<%= pickup._id %>">
+                    <select name="status" class="status-select">
+                      <option value="Pending" <%= pickup.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                      <option value="Scheduled" <%= pickup.status === 'Scheduled' ? 'selected' : '' %>>Scheduled</option>
+                      <option value="Completed" <%= pickup.status === 'Completed' ? 'selected' : '' %>>Completed</option>
+                    </select>
+                    <button type="submit" class="update-btn">Update</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="admin-actions">
+      <a href="/" class="cta-btn">Back to Home</a>
+      <a href="/admin/logout" class="cta-btn secondary-btn">Logout</a>
+    </div>
+  </div>
+</body>
+</html> 

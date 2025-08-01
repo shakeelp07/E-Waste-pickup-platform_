@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scheduled Pickups</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Scheduled E-Waste Pickups</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Item</th>
+          <th>Preferred Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (pickups.length === 0) { %>
+          <tr><td colspan="6">No pickups scheduled yet.</td></tr>
+        <% } else { %>
+          <% pickups.forEach(function(pickup) { %>
+            <tr>
+              <td><%= pickup.name %></td>
+              <td><%= pickup.email %></td>
+              <td><%= pickup.address %></td>
+              <td><%= pickup.item %></td>
+              <td><%= pickup.preferredDate.toDateString() %></td>
+              <td><%= pickup.status %></td>
+            </tr>
+          <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+    <a href="/">Back to Home</a>
+  </div>
+</body>
+</html> 

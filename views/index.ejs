@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Waste Pickup - Save the Environment</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<% if (loggedIn) { %>
+  <div class="container home-options">
+    <h1>Welcome, <%= user.name %>!</h1>
+    <p class="env-message">Thank you for being part of the solution. What would you like to do today?</p>
+    <div class="home-btn-group">
+      <a href="/pickup" class="cta-btn">Schedule a Pickup</a>
+      <a href="/pickups" class="cta-btn secondary-btn">View Scheduled Pickups</a>
+    </div>
+  </div>
+<% } else { %>
+  <div class="hero landing-hero">
+    <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=900&q=80" alt="Green Earth" class="hero-img">
+    <div class="hero-content">
+      <h1>Make a Greener Tomorrow</h1>
+      <p class="env-message">Join our mission to reduce e-waste and protect the planet. Schedule pickups, track your contributions, and stay informed with regular updates!</p>
+      <a href="/signup" class="cta-btn">Join the Movement</a>
+    </div>
+  </div>
+<% } %>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-contact">
+        <h3>Contact Us</h3>
+        <p>Email: <a href="mailto:shakeelkhan009p@gmail.com">shakeelkhan009p@gmail.com</a></p>
+      </div>
+      <div class="footer-newsletter">
+        <h3>Get Updates</h3>
+        <form action="/subscribe" method="POST" class="newsletter-form">
+          <input type="email" name="newsletterEmail" placeholder="Your email for updates" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="/login">Login</a> |
+      <a href="/pickup">Schedule Pickup</a> |
+      <a href="/pickups">View Pickups</a>
+    </div>
+    <div class="footer-copy">&copy; <%= new Date().getFullYear() %> E-Waste Pickup. All rights reserved.</div>
+  </footer>
+</body>
+</html> 
